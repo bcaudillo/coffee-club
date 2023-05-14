@@ -9,10 +9,10 @@ function NavBar(){
 <header>
 <div>
   {user ? (
-    
-    <CoffeeList />
-    
-    
+    <p>
+      <button onClick={logoutUser}>Logout</button>
+       <CoffeeList/>   
+    </p>
     ) : (
     <>
       <Link to="/">Home</Link>

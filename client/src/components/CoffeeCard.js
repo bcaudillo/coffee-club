@@ -30,9 +30,9 @@ function  CoffeeCard ({coffee,onAddToFavorites, onDeleteCoffee}){
         <ul>
             <li><b>Notes:</b> {coffee.notes}</li>
             <li><b>Origin:</b> {coffee.origin}</li>
-        {/* <button onClick = {handleAdd}>Add to favorite list</button> 
+        <button onClick = {handleAdd}>Add to favorite list</button> 
         <br></br>
-        <button onClick = {handleDelete}>Remove from favorite list</button> */}
+        <button onClick = {handleDelete}>Remove from favorite list</button> 
         </ul>
 
     </div>)

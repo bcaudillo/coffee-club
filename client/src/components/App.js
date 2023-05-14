@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from "react";
+import React, {useContext, useEffect} from "react";
 import { Switch, Route} from 'react-router-dom'
 import Login from './Login';
 import Signup from './SignUp';
@@ -6,10 +6,12 @@ import NavBar from "./NavBar";
 import CoffeeList from "./CoffeeList";
 import Home from "./Home";
 import { CoffeeContext } from "./Context/coffee";
+import { UserDataContext } from "./Context/userData";
 
 function App() {
 
-  const {loadCoffee, user} = useContext(CoffeeContext)
+  const {user, loadCoffee} = useContext(CoffeeContext)
+  // const {user} = useContext(UserDataContext)
 
   useEffect(()=>{
     loadCoffee()
@@ -41,8 +43,6 @@ function App() {
           </Route>
         </Switch>
       )}
-
-
     
     </main>
     </>

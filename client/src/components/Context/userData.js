@@ -1,12 +1,12 @@
-import { createContext,useContext } from "react";
+import { createContext, useState } from "react";
 
-const userDataContext = createContext(null)
+const UserDataContext = createContext(null);
 
-const userDataProvider = ({children}) => {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const [passwordConfirmation, setPasswordConfirmation] = useState("");
-    
+const UserDataProvider = ({children}) => {
+  const [user, setUser] = useState(null)
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
     const logoutUser = () =>{
         fetch("/logout", {
@@ -22,22 +22,36 @@ const userDataProvider = ({children}) => {
         setUser(null);
       }
 
+      function loginSubmit(e) {
+        e.preventDefault();
+        fetch("/login", {
+          method: "POST",
+          header: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"},
+          body: JSON.stringify({ username, password }),
+        }).then((r) => {
+          if (r.ok) {
+            r.json().then((user) => setUser(user));
+          }
+        });
+      }
    return(
-   <userDataContext.Provider value={{
-        user, 
-        setUser,
-        username,
-        setUsername,
-        password,
-        setPassword,
-        passwordConfirmation,
-        setPasswordConfirmation,
-        logoutUser,
-        handleLogin
-    }}>
-    {children}
-    </userDataContext.Provider>
+      <UserDataContext.Provider value={{
+          user, 
+          setUser,
+          username,
+          setUsername,
+          password,
+          setPassword,
+          passwordConfirmation,
+          setPasswordConfirmation,
+          logoutUser,
+          handleLogin
+      }}>
+      {children}
+      </UserDataContext.Provider>
    ) 
 }
 
-export {userDataContext, userDataProvider};
+export {UserDataProvider, UserDataContext};

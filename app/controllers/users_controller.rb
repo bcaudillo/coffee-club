@@ -16,7 +16,7 @@ class UsersController < ApplicationController
         render json: user
     end
 
-
+    user = user&.authenticate(params[:password])
     private
 
     def authorize
