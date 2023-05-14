@@ -6,11 +6,26 @@ import { CoffeeContext } from "./Context/coffee";
 
 function Login(){
   
-  const {password, setPassword, username, setUsername, loginSubmit} = useContext(CoffeeContext)
-   
+  const {setUser, password, setPassword, username, setUsername} = useContext(CoffeeContext)
+  
+  function handleSubmit(e) {
+    e.preventDefault();
+    fetch("/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+    },
+      body: JSON.stringify({ username, password }),
+    })
+    .then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user));
+      }
+    });
+  }
       return(
-        
-    <Form onSubmit ={loginSubmit}>
+    
+    <Form onSubmit ={handleSubmit}>
         <h1>Coffee Shop</h1>
         <h3>Login</h3>
          

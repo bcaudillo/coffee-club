@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import {baseUrl, headers} from "./Globals"
+import React, { useContext } from "react";
+import { CoffeeContext } from "./Context/coffee";
 
 
-function SignUp({ setUser }) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+function SignUp() {
+
+const {setUser, username, setUsername, password, setPassword,passwordConfirmation, setPasswordConfirmation}= useContext(CoffeeContext)
 
   function handleSubmit(e) {
     e.preventDefault();
     fetch("/signup", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         username,

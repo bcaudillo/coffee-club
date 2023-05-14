@@ -3,7 +3,7 @@ import CoffeeCard from './CoffeeCard';
 import { CoffeeContext } from './Context/coffee';
 
 function CoffeeList(){
-    const {coffee, setCoffee} = useContext(CoffeeContext)
+    const {coffee} = useContext(CoffeeContext)
     console.log(coffee)
 
     const coffeeCards = coffee.map(coffee => <CoffeeCard key ={coffee.id} coffee = {coffee}/>)

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
 import { CoffeeContext } from './Context/coffee';
+import CoffeeList from './CoffeeList'
 
 function NavBar(){
   const {user,logoutUser} = useContext(CoffeeContext)
@@ -8,8 +9,11 @@ function NavBar(){
 <header>
 <div>
   {user ? (
-    <button onClick={logoutUser}>Logout</button>
-  ) : (
+    
+    <CoffeeList />
+    
+    
+    ) : (
     <>
       <Link to="/">Home</Link>
     </>

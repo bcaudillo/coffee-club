@@ -1,20 +1,22 @@
 import React from 'react';
-import {baseUrl, headers} from './Globals';
 
 function  CoffeeCard ({coffee,onAddToFavorites, onDeleteCoffee}){
     const params = {name: coffee.name, origin: coffee.origin, notes: coffee.notes}
 
     function handleAdd(){
-        fetch(baseUrl + `/favorites`,{
+        fetch(`/favorites`,{
             method: "POST",
-            headers,
+            headers: {
+                "Accept": "applicatoin/json",
+                "Content-Type": "application/json"
+              },
             body: JSON.stringify(params)
         })
         .then(r=>r.json())
         .then((favorite)=>onAddToFavorites(favorite))
     }
     function handleDelete(){
-        fetch(baseUrl + `/coffeelist/${coffee.id}`,{
+        fetch(`/coffeelist/${coffee.id}`,{
           method: "DELETE"
         })
         .then(r=>r.json())
@@ -28,9 +30,9 @@ function  CoffeeCard ({coffee,onAddToFavorites, onDeleteCoffee}){
         <ul>
             <li><b>Notes:</b> {coffee.notes}</li>
             <li><b>Origin:</b> {coffee.origin}</li>
-        <button onClick = {handleAdd}>Add to favorite list</button> 
+        {/* <button onClick = {handleAdd}>Add to favorite list</button> 
         <br></br>
-        <button onClick = {handleDelete}>Remove from favorite list</button>
+        <button onClick = {handleDelete}>Remove from favorite list</button> */}
         </ul>
 
     </div>)
