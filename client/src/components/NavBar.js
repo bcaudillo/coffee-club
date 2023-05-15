@@ -7,11 +7,11 @@ import Header from './Header';
 function NavBar(){
   const {user,logoutUser} = useContext(CoffeeContext)
         return(
-<header>
-  <Link to = '/coffee'>CoffeeList</Link>
+<header>  
 <div>
   {user ? (
     <p>
+        <Link to= "/coffee">See list</Link>
        <Header/>   
     </p>
     ) : (

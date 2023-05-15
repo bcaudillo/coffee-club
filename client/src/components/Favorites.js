@@ -1,5 +1,11 @@
+import CoffeeList from "./CoffeeList";
 
 function Favotires(){
-    <h1>me</h1>
-}
+    return(
+        <div>
+            <iframe src='/coffee'>
+                <CoffeeList/>
+            </iframe>
+        </div>
+        )}
 export default Favotires;
