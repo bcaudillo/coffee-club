@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_11_144201) do
+ActiveRecord::Schema.define(version: 2023_05_19_001642) do
+
+  create_table "Reviews", force: :cascade do |t|
+    t.string "user_id"
+    t.string "comment"
+    t.integer "rating"
+    t.integer "coffee_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "application_records", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -21,15 +30,6 @@ ActiveRecord::Schema.define(version: 2023_05_11_144201) do
     t.string "name"
     t.string "origin"
     t.string "notes"
-  end
-
-  create_table "reviews", force: :cascade do |t|
-    t.string "username"
-    t.string "coment"
-    t.integer "rating"
-    t.integer "coffee_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|

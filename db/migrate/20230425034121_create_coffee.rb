@@ -4,6 +4,7 @@ class CreateCoffees < ActiveRecord::Migration[6.1]
       t.string :name
       t.string :origin
       t.string :notes
+      t.integer :coffee_id
     end
   end
 end

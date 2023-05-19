@@ -7,6 +7,7 @@ import CoffeeList from "./CoffeeList";
 import Home from "./Home";
 import { CoffeeContext } from "./Context/coffee";
 import { UserDataContext } from "./Context/userData";
+import Favotires from "./Favorites";
 
 function App() {
 
@@ -28,6 +29,9 @@ function App() {
         <Switch>
           <Route path = "/coffee">
             <CoffeeList />
+          </Route>
+          <Route path ="/favorites">
+            <Favotires />
           </Route>
         </Switch>
       ) : (

@@ -11,5 +11,5 @@ user = User.create([{ username: 'Star Wars' }, { password: 'Lord of the Rings' }
 user = User.create([{ username: 'Stsdfsdar Wars' }, { password: 'sdfhe Rings' },{password_confirmation: 'asdlfj'}])
 user = User.create([{ username: 'Star Wasdfdssdfsrs' }, { password: 'Lord of the Ringasdfsds' },{password_confirmation: 'asdlfsdfds'}])
 
-
+review = Review.create([user_id: 2, comment: "a;sdlkfj", coffee_id: 17, rating: 3]) 
 puts "✅ Done seeding!"

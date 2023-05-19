@@ -12,6 +12,9 @@ function NavBar(){
   {user ? (
     <p>
         <Link to= "/coffee">See list</Link>
+        <br>
+        </br>
+        <Link to = "/favorites">Favorite list</Link>
        <Header/>   
     </p>
     ) : (

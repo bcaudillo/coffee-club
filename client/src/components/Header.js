@@ -12,8 +12,6 @@ function Header() {
       {user ? (
         <div>
           <p>Welcome, {user.username}!</p>
-            <Favorites/>
-
           <button onClick={logoutUser}>Logout</button>
         </div>
       ) : (
