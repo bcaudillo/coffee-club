@@ -9,14 +9,14 @@ class UsersController < ApplicationController
         else 
             render json: {errors: user.errors.full_messages}, status: :uprocessable_entity
         end
+        user = user&.authenticate(params[:password])
     end
 
-    def show
+    def index
         user = User.find_by(id: session[:user_id])
         render json: user
     end
 
-    user = user&.authenticate(params[:password])
     private
 
     def authorize

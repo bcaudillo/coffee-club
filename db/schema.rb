@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_19_001642) do
+ActiveRecord::Schema.define(version: 2023_05_19_020039) do
 
   create_table "Reviews", force: :cascade do |t|
     t.string "user_id"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2023_05_19_001642) do
     t.integer "coffee_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "username"
   end
 
   create_table "application_records", force: :cascade do |t|

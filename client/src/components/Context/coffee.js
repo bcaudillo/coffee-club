@@ -7,7 +7,7 @@ const CoffeeProvider = ({children}) =>{
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [coffee, setCoffee] = useState([])
-    const [passwordConfirmation, setPasswordConfirmation] =('')
+    const [passwordConfirmation, setPasswordConfirmation] =useState('')
 
     const loadCoffee = () =>{
             fetch("/coffee")

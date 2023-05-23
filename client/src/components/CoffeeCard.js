@@ -1,42 +1,82 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
+import { CoffeeContext } from './Context/coffee';
 
-function  CoffeeCard ({coffee,onAddToFavorites, onDeleteCoffee}){
-    const params = {name: coffee.name, origin: coffee.origin, notes: coffee.notes}
+function  CoffeeCard ({key, coffee}){
+  const {username, setUsername, setUser} = useContext(CoffeeContext)
+  const [isTrue, setIsTrue] = useState(false)
+  const [comment, setComment] = useState("")
+  
+ 
 
-    function handleAdd(){
-        fetch(`/favorites`,{
-            method: "POST",
-            headers: {
-                "Accept": "applicatoin/json",
-                "Content-Type": "application/json"
-              },
-            body: JSON.stringify(params)
-        })
-        .then(r=>r.json())
-        .then((favorite)=>onAddToFavorites(favorite))
-    }
-    function handleDelete(){
-        fetch(`/coffeelist/${coffee.id}`,{
-          method: "DELETE"
-        })
-        .then(r=>r.json())
-        .then((coffee)=>onDeleteCoffee(coffee))
+  function handleSubmit(e) {
+    e.preventDefault();
+    fetch(`/reviews/${coffee.id}}`, {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username: 'a',
+        comment: 'a',
+        coffee_id: 'a'
+      }),
+    }).then((r) => {
+      if (r.ok) {
+        r.json().then((comment) => setComment(comment));
       }
+    });
+  }
+  function handleClick(){ 
+    console.log('you got to me')
+  }
+
+  
+
 
     return(
-    <div>
-        <h4 key = {coffee.id}>{coffee.name}</h4>
+      <div>
+      <h2>{coffee.name}</h2>
+      <p>Origin: {coffee.origin}</p>
+      <p>Notes: {coffee.notes}</p>
+{/* 
+      {coffee.reviews.length > 0 && ( */}
+      
+        <div>
+          {isTrue?(<button onClick = {handleSubmit}>click me</button>):(<button onClick={()=>setIsTrue(true)}>Leave a comment</button>
+)}
+            {isTrue ? (
+              <div>
+                
+                <form >
+                <label htmlFor="comments">Comments:</label>
+                  <input
+                    type="text"
+                    id="comments"
+                    autoComplete="off"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                  /></form>
+              </div>
+            ) : (
+              <p>leave a comment</p>
+            )}
 
-        <ul>
-            <li><b>Notes:</b> {coffee.notes}</li>
-            <li><b>Origin:</b> {coffee.origin}</li>
-        <button onClick = {handleAdd}>Add to favorite list</button> 
-        <br></br>
-        <button onClick = {handleDelete}>Remove from favorite list</button> 
-        </ul>
+          <h3>What others are saying:</h3>
+          {coffee.reviews.map(review => (
+            <div key={review.id}>
+              <h4>{review.username} wrote:</h4>
+              <p>Comment: {review.comment}</p>
+        
 
-    </div>)
+            </div>
+          ))}
+        </div>
+      {/* )} */}
+    </div>
+  );
+};
 
-}
+
 
 export default CoffeeCard
