@@ -7,7 +7,8 @@ import CoffeeList from "./CoffeeList";
 import Home from "./Home";
 import { CoffeeContext } from "./Context/coffee";
 import { UserDataContext } from "./Context/userData";
-import Favotires from "./Favorites";
+import AddCoffee from "./AddCoffee"
+import MyContributions from "./MyContributions";
 
 function App() {
 
@@ -30,8 +31,11 @@ function App() {
           <Route path = "/coffee">
             <CoffeeList />
           </Route>
-          <Route path ="/favorites">
-            <Favotires />
+          <Route path ="/addcoffee">
+            <AddCoffee />
+          </Route>
+          <Route path ="/mycontributions">
+            <MyContributions />
           </Route>
         </Switch>
       ) : (
@@ -42,7 +46,7 @@ function App() {
           <Route path = "/login">
             <Login />
           </Route>
-          <Route path ="/">
+          <Route path = "/">
             <Home />
           </Route>
         </Switch>

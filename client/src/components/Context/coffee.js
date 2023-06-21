@@ -8,6 +8,10 @@ const CoffeeProvider = ({children}) =>{
     const [password, setPassword] = useState('')
     const [coffee, setCoffee] = useState([])
     const [passwordConfirmation, setPasswordConfirmation] =useState('')
+    const [comment, setComment] = useState("")
+    const [contributions, setContributions] = useState([])
+    
+    
 
     const loadCoffee = () =>{
             fetch("/coffee")
@@ -57,7 +61,11 @@ const CoffeeProvider = ({children}) =>{
             loadCoffee,
             logoutUser,
             handleSubmit,
-            handleLogin
+            handleLogin,
+            comment,
+            setComment,
+            contributions,
+            setContributions
             }}>
             {children}
         </CoffeeContext.Provider>

@@ -5,7 +5,8 @@ import { CoffeeContext } from './Context/coffee';
 function CoffeeList(){
     const {coffee} = useContext(CoffeeContext)
     console.log(coffee)
-    const coffeeCards = coffee.map(coffee => <CoffeeCard key ={coffee.id} coffee = {coffee}/>)
+    //in order to update state coffee.map needs to change 
+    const coffeeCards = coffee.map(coffee => <CoffeeCard key ={coffee.id} coffeeChild = {coffee}/>)
     
     return (
         <div>

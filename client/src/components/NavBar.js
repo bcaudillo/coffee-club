@@ -14,7 +14,9 @@ function NavBar(){
         <Link to= "/coffee">See list</Link>
         <br>
         </br>
-        <Link to = "/favorites">Favorite list</Link>
+        <Link to = "/addcoffee">Add your own blend</Link>
+        <br></br>
+        <Link to = "/mycontributions">My contributions</Link>
        <Header/>   
     </p>
     ) : (
