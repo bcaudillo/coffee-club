@@ -21,6 +21,10 @@ function Login(){
       if (r.ok) {
         r.json().then((user) => setUser(user));
       }
+      // else {
+      //   r.json().then((errorData) => setErrors(errorData.errors));
+      //   alert(errors)
+      // }
     });
   }
       return(

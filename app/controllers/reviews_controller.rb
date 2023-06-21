@@ -1,7 +1,7 @@
 class ReviewsController < ApplicationController
     
     def create
-       review = Review.create(review_params)
+       review = Review.create!(review_params)
        render json: review, status: :created
     end
 
@@ -25,7 +25,7 @@ class ReviewsController < ApplicationController
     private
 
     def review_params
-        params.permit(:username, :comment, :coffee_id, :user_id)
+        params.require(:review).permit(:username, :comment, :coffee_id, :user_id)
     end
 
 end

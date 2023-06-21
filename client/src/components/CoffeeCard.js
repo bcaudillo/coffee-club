@@ -41,7 +41,9 @@ function  CoffeeCard ({key, coffeeChild}){
         }
         
         function handleAddReview(e) {
+          console.log(comment)
           console.log(e)
+          e.preventDefault()
           
           fetch(`/reviews`, {
             method: "POST",
@@ -63,8 +65,63 @@ function  CoffeeCard ({key, coffeeChild}){
         }
         
         function onAddReview(newComment){
-          setComment([...comment, newComment])
+          const updatedReviews = coffeeChild.reviews.filter((review) => review.id !== newComment.id);
+          console.log(updatedReviews)
+          const updatedCoffee = {
+            ...coffeeChild, 
+            reviews: [...updatedReviews, newComment]
+          }
+          const updatedCoffeeList = coffee.map((coffeeItem)=>{
+            if(coffeeItem.id == updatedCoffee.id){
+              return updatedCoffee
+            } 
+            return coffeeItem
+          })
+          setCoffee(updatedCoffeeList)
         }
+        
+        
+
+        // function onUpdateReview(reviewId){
+        //   const updatedReviews = coffeeChild.reviews.filter((review) => review.id !== reviewId);
+  
+        //      const updatedCoffee = {
+        //       ...coffeeChild, 
+        //       reviews: updatedReviews
+        //     }
+        //     const updatedCoffeeList = coffee.map((coffeeItem)=>{
+        //       if(coffeeItem.id == updatedCoffee.id){
+        //         return updatedCoffee
+        //       } 
+        //       return coffeeItem
+        //     })
+        //     setCoffee(updatedCoffeeList)
+        //   }
+        
+
+        // function handleUpdateReview(e) {
+        //   console.log(e)
+          
+        //   fetch(`/reviews`, {
+        //     method: "PATCH",
+        //     headers: {
+        //       "Accept": "application/json",
+        //       "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify({
+        //       "comment": comment,
+        //       "username": username,
+        //       "user_id": user.id,
+        //       "coffee_id": coffeeChild.id,
+        //     }),
+        //   }).then((r) => {
+        //     if (r.ok) {
+        //       r.json().then((comment) => onAddReview(comment));
+        //     } 
+        //   });
+        // }
+
+     
 
 
     return(
@@ -79,7 +136,7 @@ function  CoffeeCard ({key, coffeeChild}){
        
               <div>
                 
-                <form onClick={handleAddReview}>
+              <form onClick={handleAddReview}>
                 <label htmlFor="comments">What are your thoughts?</label>
                   <input
                     type="text"
@@ -97,8 +154,11 @@ function  CoffeeCard ({key, coffeeChild}){
               <h4>{review.username} wrote:</h4>
               <p>Comment: {review.comment}</p>
               <button onClick={()=> handleDeleteReview(review.id)}>Remove</button>
-              {/* <button onClick ={onUpdateReview}>Edit</button> */}
-        
+              {/* {review.user_id == user.id ? 
+              
+              <button onClick ={() => handleUpdateReview(review.id)}>Edit</button> :<></> }
+              
+         */}
 
             </div>
           ))}
