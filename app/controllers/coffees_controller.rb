@@ -11,13 +11,26 @@ class CoffeesController < ApplicationController
         render json: {errors: e.record.errors.full_messages}, status: :unprocessable_entity 
     end
 
+    #need to update front end
+    def update
+        coffee = Coffee.find(params[:id])
+        if coffee
+            coffee.update(coffee_params)
+            render json: coffee
+        else
+            render_not_found_response
+        end
+    end
+
+
+
     def destroy
         coffee = Coffee.find(params[:id])
         if coffee
             coffee.destroy
             head :no_content
         else
-            render json: {error: "coffee not found"}, status: :not_found
+            render_not_found_response
         end
     end
     
@@ -26,5 +39,10 @@ class CoffeesController < ApplicationController
     def coffee_params
         params.require(:coffee).permit(:name, :origin, :notes, :user_id)
     end
+
+    def render_not_found_response
+        render json: {error: "Coffee not found"}, status: :not_found
+    end
+
 
 end

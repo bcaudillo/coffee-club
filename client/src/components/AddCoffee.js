@@ -32,7 +32,8 @@ function AddCoffee(){
         if (r.ok) {
           r.json().then((newCoffee) => onAddCoffee(newCoffee));
           alert('coffee has been created!')
-        }else {
+        } else {
+          alert('you made it to me')
           r.json().then((errorData) => setErrors(errorData.errors));
         }
       });
