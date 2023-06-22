@@ -1,4 +1,4 @@
-import {useState, useContext} from "react"
+import {useState, useContext, useEffect} from "react"
 import { CoffeeContext } from "./Context/coffee"
 
 function AddCoffee(){
@@ -8,11 +8,15 @@ function AddCoffee(){
   const [notes, setNotes] = useState("")
   const [errors, setErrors] = useState([])
 
-  function onAddCoffee(newCoffee){
-    setCoffee([...coffee, newCoffee])
-    console.log(coffee)
+  function onAddCoffee(newCoffee) {
+    const updatedCoffeeList = [...coffee, newCoffee];
+    setCoffee(updatedCoffeeList);
+    console.log(updatedCoffeeList)
   }
-  
+  //this is how i was able to view updated state
+  // useEffect(() => {
+  //   console.log(coffee);
+  // }, [coffee]);
 
     function handleSubmit(e){
       e.preventDefault();
@@ -33,7 +37,6 @@ function AddCoffee(){
           r.json().then((newCoffee) => onAddCoffee(newCoffee));
           alert('coffee has been created!')
         } else {
-          alert('you made it to me')
           r.json().then((errorData) => setErrors(errorData.errors));
         }
       });

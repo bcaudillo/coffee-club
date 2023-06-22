@@ -77,7 +77,9 @@ function  CoffeeCard ({key, coffeeChild}){
             } 
             return coffeeItem
           })
+          console.log(updatedCoffeeList)
           setCoffee(updatedCoffeeList)
+          console.log(coffee)
         }
         
         
