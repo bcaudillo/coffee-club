@@ -13,10 +13,6 @@ function AddCoffee(){
     setCoffee(updatedCoffeeList);
     console.log(updatedCoffeeList)
   }
-  //this is how i was able to view updated state
-  // useEffect(() => {
-  //   console.log(coffee);
-  // }, [coffee]);
 
     function handleSubmit(e){
       e.preventDefault();
@@ -38,6 +34,7 @@ function AddCoffee(){
           alert('coffee has been created!')
         } else {
           r.json().then((errorData) => setErrors(errorData.errors));
+          console.log(errors)
         }
       });
 

@@ -22,7 +22,7 @@ const {setUser, username, setUsername, password, setPassword,passwordConfirmatio
     }).then((r) => {
       if (r.ok) {
         r.json().then((user) => setUser(user));
-      }
+      } 
     });
   }
 

@@ -6,6 +6,7 @@ import { CoffeeContext } from "./Context/coffee";
 
 function Login(){
   
+  const [errors,setErrors] = useState({})
   const {setUser, password, setPassword, username, setUsername} = useContext(CoffeeContext)
   
   function handleSubmit(e) {
@@ -21,10 +22,10 @@ function Login(){
       if (r.ok) {
         r.json().then((user) => setUser(user));
       }
-      // else {
-      //   r.json().then((errorData) => setErrors(errorData.errors));
-      //   alert(errors)
-      // }
+      else {
+        r.json().then((errorData) => setErrors(errorData));
+         alert(JSON.stringify(errors.error))
+      }
     });
   }
       return(
@@ -51,10 +52,12 @@ function Login(){
             onChange = {(e)=> setPassword(e.target.value)}
             >
             </Form.Input>
+            
             <Form.Button>Submit</Form.Button>
 
         </Form.Group>
         </Form>
+        
     )
 }
 export default Login;

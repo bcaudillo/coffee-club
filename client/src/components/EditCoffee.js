@@ -4,9 +4,13 @@ import { CoffeeContext } from './Context/coffee';
 
 function EditCoffee(){
     const [name, setName] = useState("")
+    const [coffeeSearch, setCoffeeSearch] = useState ("")
     const [origin, setOrigin]= useState("")
     const [notes, setNotes] = useState("")
-    const [errors, setErrors] = useState([])
+    const [errors, setErrors] = useState({})
+    const {coffee} = useContext(CoffeeContext)
+
+ 
 
     // function onUpdateReview(reviewId){
     //       const updatedReviews = coffeeChild.reviews.filter((review) => review.id !== reviewId);
@@ -43,23 +47,28 @@ function EditCoffee(){
     //       }).then((r) => {
     //         if (r.ok) {
     //           r.json().then((comment) => onAddReview(comment));
-    //         } 
+    //         } else {
+    //           r.json().then((errorData) => setErrors(errorData.errors));
+    //         }
     //       });
     //     }
+    function handleSubmit(){
+
+    }
 
         return(
             <div>
-                <h1>Make a correction:</h1>
-            <form >
+                <h1>Find a coffee by name:</h1>
+            <form onSubmit={(handleSubmit)}>
             <label htmlFor="name">Name: </label>
             <input
               type="text"
               id="name"
               autoComplete="off"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={coffeeSearch}
+              onChange={(e) => setCoffeeSearch(e.target.value)}
             />
-            <br></br>
+            {/* <br></br>
             <label htmlFor="origin">Origin: </label>
             <input
               type="text"
@@ -77,7 +86,7 @@ function EditCoffee(){
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
             />
-            <br></br>
+            <br></br> */}
             
             {errors.length > 0 && (
               <ul style={{ color: "red" }}>
@@ -86,7 +95,7 @@ function EditCoffee(){
             ))}
         </ul>
       )}
-      <button type="Submit">Share your blend</button>
+      <button type="Submit">Search</button>
           </form>
                 
             </div>
