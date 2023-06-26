@@ -4,13 +4,13 @@ class ReviewsController < ApplicationController
         user_id = review_params[:user_id]
         coffee_id = review_params[:coffee_id]
       
-        # Check if the user has already reviewed the coffee
-        if Review.exists?(user_id: user_id, coffee_id: coffee_id)
-          render json: { error: "User has already reviewed this coffee" }, status: :unprocessable_entity
-        else
+        # # Check if the user has already reviewed the coffee
+        # if Review.exists?(user_id: user_id, coffee_id: coffee_id)
+        #   render json: { error: "User has already reviewed this coffee" }, status: :unprocessable_entity
+        # else
           review = Review.create!(review_params)
           render json: review, status: :created
-        end
+        # end
       end
       
 
@@ -18,6 +18,17 @@ class ReviewsController < ApplicationController
        reviews = Review.all
        render json: reviews
     end
+
+    def update
+        review = Review.find(params[:id])
+        if review
+            review.update(review_params)
+            render json: review
+        else 
+            render json: {error: "Review not found"}, status: :not_found
+        end
+    end
+          
 
 
     def destroy
