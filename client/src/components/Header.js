@@ -8,7 +8,7 @@ function Header() {
 
 
   return (
-    <header>
+    <header>     
       {user ? (
         <div>
           <p>Welcome, {user.username}!</p>
@@ -22,3 +22,4 @@ function Header() {
 }
 
 export default Header;
+

@@ -1,6 +1,7 @@
 import React, {useContext, useState} from "react";
 import {Form} from "semantic-ui-react";
 import { CoffeeContext } from "./Context/coffee";
+import { Link } from "react-router-dom";
 
 
 
@@ -29,11 +30,13 @@ function Login(){
     });
   }
       return(
+        
     
     <Form onSubmit ={handleSubmit}>
-        <h1>Coffee Shop</h1>
+        <Link to="/">Home</Link>
+        <h1>Coffee Club</h1>
         <h3>Login</h3>
-         
+        {/*remove the other fform type it's tacky */}
 
         <Form.Group widths="equal">
             <Form.Input

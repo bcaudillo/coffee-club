@@ -69,7 +69,16 @@ function AddCoffee(){
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
         />
+
         <br></br>
+        <label htmlFor="coffee_id">Coffee ID: </label>
+        <input
+          type="text"
+          id="coffee_id"
+          autoComplete="off"
+          value={origin}
+          onChange={(e) => setOrigin(e.target.value)}
+        />
         
         {errors.length > 0 && (
           <ul style={{ color: "red" }}>
@@ -78,7 +87,7 @@ function AddCoffee(){
         ))}
     </ul>
   )}
-  <button type="Submit">Share your blend</button>
+  <button type="Submit">Share or update your blend</button>
       </form>
             
         </div>

@@ -8,25 +8,22 @@ function NavBar(){
   const {user,logoutUser} = useContext(CoffeeContext)
         return(
 <header>  
-<div>
-  {user ? (
-    <p>
-        <Link to= "/coffee">See list</Link>
-        <br>
-        </br>
-        <Link to = "/addcoffee">Add your own blend</Link>
-       <br>
-       </br>
-       <Link to ="/editcoffee">Edit your entries</Link>
-       <Header/>   
-    </p>
-    ) : (
-    <>
-      <Link to="/">Home</Link>
-    </>
-  )}
-</div>
-</header>
+<img src="https://www.pngkit.com/png/full/97-978425_coffee-beans-png-transparent-image-coffee-beans-on.png"  alt="Coffee Beans" />
+
+    <div>
+      {user ? (
+        <p>
+            <Link to= "/coffee">See list</Link>
+            <br>
+            </br>
+            <Link to = "/addcoffee">Add your own blend</Link>
+          <br>
+          </br>
+          <Header/>   
+        </p>
+        ) : null}
+    </div>
+    </header>
        
 )
 

@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
 import { CoffeeContext } from "./Context/coffee";
+import { Link } from "react-router-dom";
+
 
 
 function SignUp() {
@@ -28,6 +30,8 @@ const {setUser, username, setUsername, password, setPassword,passwordConfirmatio
 
   return (
     <div>
+      <Link to="/">Home</Link>
+      
       <form onSubmit={handleSubmit}>
         <h1>Sign Up</h1>
         <label htmlFor="username">Username</label>

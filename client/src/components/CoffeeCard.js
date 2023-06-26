@@ -5,6 +5,8 @@ function  CoffeeCard ({coffeeChild}){
   const {username,user, setCoffee, coffee} = useContext(CoffeeContext)
   const [comment, setComment] = useState("") 
   const [errors, setErrors] = useState({})
+  const isUser = user.id === coffeeChild.user_id
+
   
 
         function onDeleteReview(reviewId) {
@@ -159,27 +161,34 @@ function  CoffeeCard ({coffeeChild}){
         
             return coffeeItem;
           });
-        
+          
           setCoffee(updatedCoffeeList);
         }
         
-
       
 
-     
 
 
+       
     return(
       <div>
-      <h2>{coffeeChild.name}</h2>
-        <button onClick={()=>handleDeleteCoffee(coffeeChild.id)}>remove your coffee</button>
-      <p>Origin: {coffeeChild.origin}</p>
-      <p>Notes: {coffeeChild.notes}</p>
+        
+      <h2 style = {{color:' #556B2F'}}>{coffeeChild.name}  ☕️</h2>  
+      {isUser ? <h4 style = {{color: '#B7410E'}}>id: {coffeeChild.id} </h4> : null}
+
+    
+        {isUser ? <button onClick={()=>handleDeleteCoffee(coffeeChild.id)}>remove your coffee</button>:
+        null}
+         <h4 style = {{color: 'brown'}}>Coffee Details</h4>
+          <ul>
+            <li>Origin: {coffeeChild.origin}</li>
+            <li>Notes: {coffeeChild.notes}</li>
+          </ul>
 
       
         <div>
        
-              <div>
+              <div style = {{color: '#D4AF37'}}>
                 
               <form onSubmit={(e) =>handleAddReview(e)}>
                 <label htmlFor="comments">What are your thoughts?</label>
@@ -199,7 +208,7 @@ function  CoffeeCard ({coffeeChild}){
           {coffeeChild.reviews !== undefined ? (
             coffeeChild.reviews.map(review => (
               <div key={review.id}>
-                <h4>{review.username} wrote:</h4>
+                <h4>{'😀'} {review.username}  wrote:</h4>
                 <p>Comment: {review.comment}</p>
                 {console.log(coffeeChild.reviews.user_id)}
                 {user.id === review.user_id ? (

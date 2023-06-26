@@ -28,6 +28,10 @@
   color: #61dafb;
 }
 
+.coffee-divider {
+  margin-bottom: 10px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
