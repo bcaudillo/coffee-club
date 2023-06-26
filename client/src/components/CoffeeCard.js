@@ -58,109 +58,111 @@ function  CoffeeCard ({coffeeChild}){
           setCoffee(updatedCoffeeList);
         }
 
-function handleEditReview(reviewId, e) {
-  e.preventDefault();
-  console.log(reviewId);
-  console.log(comment);
 
-  fetch(`/reviews/${reviewId}`, {
-    method: "PATCH",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      comment: comment,
-      username: username,
-      user_id: user.id,
-      coffee_id: coffeeChild.id
-    })
-  })
-    .then(r => {
-      if (r.ok) {
-        r.json().then(comment => onEditReview(comment.id));
-      } else {
-        r.json().then(errorData => {
-          setErrors(errorData.error);
-          alert(errorData.error);
-        });
-      }
-    });
-}
-
-function handleAddReview(e) {
-  e.preventDefault();
-
-  // Check if a review already exists for the current user and coffee
-  const existingReview = coffeeChild.reviews.find(review => review.user_id === user.id);
-
-  if (existingReview) {
-    fetch(`/reviews/${existingReview.id}`, {
-      method: "PATCH",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        comment: comment,
-        username: username,
-        user_id: user.id,
-        coffee_id: coffeeChild.id,
-      }),
-    }).then((r) => {
-      if (r.ok) {
-        r.json().then((comment) => onEditReview(comment));
-      } else {
-        r.json().then(errorData => {
-          setErrors(errorData.error);
-          alert(errorData.error);
-        });
-      }
-    });
-  } else {
-    fetch(`/reviews`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        comment: comment,
-        username: username,
-        user_id: user.id,
-        coffee_id: coffeeChild.id,
-      }),
-    }).then((r) => {
-      if (r.ok) {
-        r.json().then((comment) => onAddReview(comment));
-      } else {
-        r.json().then(errorData => {
-          setErrors(errorData.error);
-          alert(errorData.error);
-        });
-      }
-    });
-  }
-}
-
+        function handleAddReview(e) {
+          e.preventDefault();
+        
+          // Check if the user has already written a review for the specific coffeeChild
+          const userReview = coffeeChild.reviews.find(review => review.user_id === user.id);
+        
+          if (!userReview) {
+            // User has not written a review yet, so create a new review
+            fetch(`/reviews`, {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                comment: comment,
+                username: username,
+                user_id: user.id,
+                coffee_id: coffeeChild.id,
+              }),
+            }).then((r) => {
+              if (r.ok) {
+                r.json().then((newReview) => onAddReview(newReview));
+              } else {
+                r.json().then(errorData => {
+                  setErrors(errorData.error);
+                  alert(errorData.error);
+                });
+              }
+            });
+          } else {
+            // User has already written a review, so update the existing review
+            fetch(`/reviews/${userReview.id}`, {
+              method: "PATCH",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                comment: comment,
+                username: username,
+                user_id: user.id,
+                coffee_id: coffeeChild.id,
+              }),
+            }).then((r) => {
+              if (r.ok) {
+                r.json().then((updatedReview) => onUpdateReview(updatedReview));
+              } else {
+                r.json().then(errorData => {
+                  setErrors(errorData.error);
+                  alert(errorData.error);
+                });
+              }
+            });
+          }
+        }
+        
+  
+        
        
          
-        function onAddReview(newComment){
-          console.log(newComment)
-          const updatedReviews = coffeeChild.reviews.filter((review) => review.id !== newComment.id);
-          console.log(updatedReviews)
+        function onAddReview(newReview) {
+          // Add the new review to the coffee's reviews array
           const updatedCoffee = {
-            ...coffeeChild, 
-            reviews: [...updatedReviews, newComment]
-          }
-          const updatedCoffeeList = coffee.map((coffeeItem)=>{
-            if(coffeeItem.id === updatedCoffee.id){
-              return updatedCoffee
-            } 
-            return coffeeItem
-          })
-          setCoffee(updatedCoffeeList)
+            ...coffeeChild,
+            reviews: [...coffeeChild.reviews, newReview]
+          };
+        
+          // Update the coffee list state with the updated coffee
+          const updatedCoffeeList = coffee.map(coffeeItem => {
+            if (coffeeItem.id === updatedCoffee.id) {
+              return updatedCoffee;
+            }
+            return coffeeItem;
+          });
+        
+          setCoffee(updatedCoffeeList);
         }
+        
+        function onUpdateReview(updatedReview) {
+          // Find the coffee that contains the updated review
+          const updatedCoffeeList = coffee.map(coffeeItem => {
+            if (coffeeItem.reviews.some(review => review.id === updatedReview.id)) {
+              // Update the specific review in the coffee's reviews array
+              const updatedReviews = coffeeItem.reviews.map(review => {
+                if (review.id === updatedReview.id) {
+                  return updatedReview;
+                }
+                return review;
+              });
+        
+              // Return the coffee with the updated reviews
+              return {
+                ...coffeeItem,
+                reviews: updatedReviews
+              };
+            }
+        
+            return coffeeItem;
+          });
+        
+          setCoffee(updatedCoffeeList);
+        }
+        
 
       
 
