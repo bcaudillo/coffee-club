@@ -3,6 +3,7 @@ class CoffeesController < ApplicationController
         coffee = Coffee.all
         render json: coffee, include: :reviews
     end
+      
 
     def create
         coffee = Coffee.create!(coffee_params)
@@ -11,7 +12,6 @@ class CoffeesController < ApplicationController
         render json: {errors: e.record.errors.full_messages}, status: :unprocessable_entity 
     end
 
-    #need to update front end
     def update
         coffee = Coffee.find(params[:id])
         if coffee
@@ -37,7 +37,7 @@ class CoffeesController < ApplicationController
     private
 
     def coffee_params
-        params.require(:coffee).permit(:name, :origin, :notes, :user_id)
+        params.require(:coffee).permit(:name, :origin, :notes, :user_id, :id)
     end
 
     def render_not_found_response

@@ -1,8 +1,8 @@
 import { createContext, useState } from "react";
 
-const UserDataContext = createContext(null);
+const FunctionsContext = createContext(null);
 
-const UserDataProvider = ({children}) => {
+const FunctionProvider = ({children}) => {
   const [user, setUser] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -37,7 +37,7 @@ const UserDataProvider = ({children}) => {
         });
       }
    return(
-      <UserDataContext.Provider value={{
+      <FunctionsContext.Provider value={{
           user, 
           setUser,
           username,
@@ -50,8 +50,8 @@ const UserDataProvider = ({children}) => {
           handleLogin
       }}>
       {children}
-      </UserDataContext.Provider>
+      </FunctionsContext.Provider>
    ) 
 }
 
-export {UserDataProvider, UserDataContext};
+export {FunctionProvider, FunctionsContext};

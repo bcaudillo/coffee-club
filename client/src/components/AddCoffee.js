@@ -7,6 +7,7 @@ function AddCoffee(){
   const [origin, setOrigin]= useState("")
   const [notes, setNotes] = useState("")
   const [errors, setErrors] = useState([])
+  const [coffeeId, setCoffeeId] = useState("")
 
   function onAddCoffee(newCoffee) {
     const updatedCoffeeList = [...coffee, newCoffee];
@@ -26,11 +27,12 @@ function AddCoffee(){
           name,
           origin,
           notes,
-          user_id: user.id
+          user_id: user.id,
+          coffeeId
         }),
       }).then((r) => {
         if (r.ok) {
-          r.json().then((newCoffee) => onAddCoffee(newCoffee));
+          r.json().then((newCoffee) => console.log(newCoffee));
           alert('coffee has been created!')
         } else {
           r.json().then((errorData) => setErrors(errorData.errors));
@@ -76,8 +78,8 @@ function AddCoffee(){
           type="text"
           id="coffee_id"
           autoComplete="off"
-          value={origin}
-          onChange={(e) => setOrigin(e.target.value)}
+          value={coffeeId}
+          onChange={(e) => setCoffeeId(e.target.value)}
         />
         
         {errors.length > 0 && (

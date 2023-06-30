@@ -17,8 +17,10 @@ function NavBar(){
             <br>
             </br>
             <Link to = "/addcoffee">Add your own blend</Link>
-          <br>
+            <br>
           </br>
+          <Link to ="/editcoffee">Edit your entries</Link>
+          
           <Header/>   
         </p>
         ) : null}
