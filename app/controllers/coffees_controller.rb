@@ -12,15 +12,17 @@ class CoffeesController < ApplicationController
         render json: {errors: e.record.errors.full_messages}, status: :unprocessable_entity 
     end
 
+      
     def update
         coffee = Coffee.find(params[:id])
-        if coffee
-            coffee.update(coffee_params)
-            render json: coffee
-        else
-            render_not_found_response
-        end
-    end
+      
+          if coffee.update(coffee_params)
+            render json: coffee, status: :ok
+          else
+            render json: { errors: "can not be blank" }, status: :unprocessable_entity
+          end
+       
+      end
 
 
 

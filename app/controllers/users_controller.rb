@@ -3,13 +3,24 @@ class UsersController < ApplicationController
 
     def create
         user = User.create(user_params)
-        user = user&.authenticate(params[:password])
         if user.valid?
             session[:user_id] = user.id
             render json: user, status: :created
         else 
-            render json: {errors: user.errors.full_messages}, status: :uprocessable_entity
+            render json: {errors: "can not be blank"}, status: :uprocessable_entity
         end
+    end
+
+    def show
+      userId = session[:user_id]
+      user = User.find(userId)
+      render json: user
+    end
+
+    def blends
+        @user = User.find(params[:id])
+        blend = @user.blends
+        render json: blends, status: :accepted
     end
 
     def index
@@ -17,13 +28,6 @@ class UsersController < ApplicationController
         render json: user
     end
 
-    # def show
-    #     @user = User.find(params[:id])
-    #     coffees = Coffee.where(user_id: :user_id)
-    #     reviews = Review.where(user_id: :user_id)
-    #     contributions = {coffee: @user.coffees , review: @user.reviews}
-    #     render json: contributions
-    # end
 
 
     private

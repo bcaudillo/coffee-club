@@ -44,7 +44,7 @@ function  CoffeeCard ({coffeeChild}){
           setCoffee(updatedCoffees)
         }
         
-       function onEditReview(newReview) {
+       function onUpdateReview(newReview) {
           console.log(newReview);
           const updatedReviews = coffeeChild.reviews.filter(review => review.id !== newReview.id);
           const updatedCoffee = {
@@ -77,8 +77,6 @@ function  CoffeeCard ({coffeeChild}){
               },
               body: JSON.stringify({
                 comment: comment,
-                username: username,
-                user_id: user.id,
                 coffee_id: coffeeChild.id,
               }),
             }).then((r) => {
@@ -101,7 +99,6 @@ function  CoffeeCard ({coffeeChild}){
               },
               body: JSON.stringify({
                 comment: comment,
-                username: username,
                 user_id: user.id,
                 coffee_id: coffeeChild.id,
               }),
@@ -212,8 +209,7 @@ function  CoffeeCard ({coffeeChild}){
                 <p>Comment: {review.comment}</p>
                 {console.log(coffeeChild.reviews.user_id)}
                 {user.id === review.user_id ? (
-                    <div>
-                      <button onClick={() => handleDeleteReview(review.id)}>Remove</button>
+                    <div>                      <button onClick={() => handleDeleteReview(review.id)}>Remove</button>
                     </div>
                   ) : null}
               </div>

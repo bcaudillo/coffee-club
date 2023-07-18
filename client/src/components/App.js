@@ -6,21 +6,21 @@ import NavBar from "./NavBar";
 import CoffeeList from "./CoffeeList";
 import Home from "./Home";
 import { CoffeeContext } from "./Context/coffee";
-import { UserDataContext } from "./Context/userData";
 import AddCoffee from "./AddCoffee"
 import EditCoffee from './EditCoffee'
 
 
 function App() {
 
-  const {user, loadCoffee} = useContext(CoffeeContext)
+  const {autoLogin, user, loadCoffee,setUser} = useContext(CoffeeContext)
   // const {user} = useContext(UserDataContext)
+
 
   useEffect(()=>{
     loadCoffee()
-  },[])
-
-
+    autoLogin()
+  }, []);
+ 
   
 
   return(
@@ -30,7 +30,7 @@ function App() {
       
       {user?(
         <Switch>
-          <Route path = "/coffee">
+          <Route path = "/coffees">
             <CoffeeList />
           </Route>
           <Route path ="/addcoffee">

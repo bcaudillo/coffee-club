@@ -1,17 +1,12 @@
 class ReviewsController < ApplicationController
     
     def create
-        user_id = review_params[:user_id]
-        coffee_id = review_params[:coffee_id]
-      
-        # # Check if the user has already reviewed the coffee
-        # if Review.exists?(user_id: user_id, coffee_id: coffee_id)
-        #   render json: { error: "User has already reviewed this coffee" }, status: :unprocessable_entity
-        # else
-          review = Review.create!(review_params)
+          review = current_user.reviews.create!(review_params)
           render json: review, status: :created
-        # end
+        rescue ActiveRecord::RecordInvalid => e
+            render json: {errors: e.record.errors.full_messages}, status: :unprocessable_entity 
       end
+
       
 
     def index
@@ -20,6 +15,7 @@ class ReviewsController < ApplicationController
     end
 
     def update
+        ##current.user.review
         review = Review.find(params[:id])
         if review
             review.update(review_params)

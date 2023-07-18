@@ -2,6 +2,7 @@ import { createContext,useState } from "react";
 
 const CoffeeContext = createContext(null);
 
+//change name to dataprovider or something
 const CoffeeProvider = ({children}) =>{
     const [user, setUser]= useState(null);
     const [username, setUsername] = useState('')
@@ -11,10 +12,18 @@ const CoffeeProvider = ({children}) =>{
     const [comment, setComment] = useState("")
     const [contributions, setContributions] = useState([])
     
-    
-
+    console.log(coffee)
+    console.log(user)
+    const autoLogin = () =>{
+        // auto-login
+        fetch(`/me`)
+        .then((r) => {
+          if (r.ok) {
+            r.json().then((fetchedUser) => setUser(fetchedUser));
+        }})
+    }
     const loadCoffee = () =>{
-            fetch("/coffee")
+            fetch("/coffees")
             .then(r=>r.json())
             .then(coffee =>setCoffee(coffee)) 
           }
@@ -48,6 +57,7 @@ const CoffeeProvider = ({children}) =>{
       }
     return(
         <CoffeeContext.Provider value= {{
+            autoLogin,
             user, 
             setUser,
             username,

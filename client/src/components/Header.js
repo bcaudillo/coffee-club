@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext,useEffect } from "react";
 import { CoffeeContext } from "./Context/coffee";
 
 
 function Header() {
-  const {logoutUser, user} = useContext(CoffeeContext)
+  const {logoutUser, setUser, user} = useContext(CoffeeContext)
+
 
 
   return (

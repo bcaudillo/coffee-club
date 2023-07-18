@@ -1,11 +1,11 @@
 import React,{useContext} from 'react';
 import CoffeeCard from './CoffeeCard';
 import { CoffeeContext } from './Context/coffee';
+import EditCoffee from './EditCoffee';
 
 function CoffeeList(){
     const {coffee} = useContext(CoffeeContext)
     console.log(coffee)
-    //in order to update state coffee.map needs to change 
     const coffeeCards = coffee.map(coffee => 
         <div>
             <CoffeeCard key ={coffee.id} coffeeChild = {coffee}/>

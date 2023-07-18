@@ -7,50 +7,53 @@ function EditCoffee(){
     const [origin, setOrigin]= useState("")
     const [notes, setNotes] = useState("")
     const [errors, setErrors] = useState([])
+    const [coffeeId, setCoffeeId] = useState("")
 
-    // function onUpdateReview(reviewId){
-    //       const updatedReviews = coffeeChild.reviews.filter((review) => review.id !== reviewId);
-
-    //          const updatedCoffee = {
-    //           ...coffeeChild, 
-    //           reviews: updatedReviews
-    //         }
-    //         const updatedCoffeeList = coffee.map((coffeeItem)=>{
-    //           if(coffeeItem.id == updatedCoffee.id){
-    //             return updatedCoffee
-    //           } 
-    //           return coffeeItem
-    //         })
-    //         setCoffee(updatedCoffeeList)
-    //       }
-
-
-    //     function handleUpdateReview(e) {
-    //       console.log(e)
-
-    //       fetch(`/reviews`, {
-    //         method: "PATCH",
-    //         headers: {
-    //           "Accept": "application/json",
-    //           "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify({
-    //           "comment": comment,
-    //           "username": username,
-    //           "user_id": user.id,
-    //           "coffee_id": coffeeChild.id,
-    //         }),
-    //       }).then((r) => {
-    //         if (r.ok) {
-    //           r.json().then((comment) => onAddReview(comment));
-    //         } 
-    //       });
-    //     }
-
+    const {username,user, setCoffee, coffee} = useContext(CoffeeContext)
+    //add user.blends like see list. 
+    //more user friendly
+    function onEditCoffee(revisedCoffee) {
+      console.log(coffee)
+      const updatedCoffeeList = coffee.map(coffeeItem => {
+        if (revisedCoffee.id === coffeeItem.id) {
+          return revisedCoffee;
+        }
+        return coffeeItem;
+      });
+      setCoffee(updatedCoffeeList);
+    }
+  
+      function handleSubmit(e){
+        e.preventDefault();
+        fetch(`/coffees/${coffeeId}`, {
+          method: "PATCH",
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            name,
+            origin,
+            notes,
+            user_id: user.id
+          }),
+        }).then((r) => {
+          if (r.ok) {
+            r.json().then((newCoffee) => onEditCoffee(newCoffee));
+            alert('coffee has been edited!')
+          } else {
+            r.json().then((errorData) => setErrors(errorData.errors));
+            console.log(errors)
+          }
+        });
+  
+      }
+  
         return(
             <div>
                 <h1>Make a correction:</h1>
-            <form >
+                <h4 style ={{color: 'red'}}>Coffee ID must be present to edit</h4>
+            <form onSubmit={(e)=>handleSubmit(e)}>
             <label htmlFor="name">Name: </label>
             <input
               type="text"
@@ -78,6 +81,15 @@ function EditCoffee(){
               onChange={(e) => setNotes(e.target.value)}
             />
             <br></br>
+            <label htmlFor="coffeeId">Coffee ID: </label>
+            <input
+              type="text"
+              id="coffeeId"
+              autoComplete="off"
+              value={coffeeId}
+              onChange={(e) => setCoffeeId(e.target.value)}/>
+              <br/>
+  
 
             {errors.length > 0 && (
               <ul style={{ color: "red" }}>

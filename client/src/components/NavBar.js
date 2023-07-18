@@ -13,7 +13,7 @@ function NavBar(){
     <div>
       {user ? (
         <p>
-            <Link to= "/coffee">See list</Link>
+            <Link to= "/coffees">See list</Link>
             <br>
             </br>
             <Link to = "/addcoffee">Add your own blend</Link>

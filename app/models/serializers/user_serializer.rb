@@ -1,3 +1,9 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :username, :password_digest
+  attributes :id, :username, :blends
+
+
+
+  #no need for digest, maybe blends
 end
+
+

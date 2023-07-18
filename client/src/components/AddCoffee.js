@@ -7,7 +7,6 @@ function AddCoffee(){
   const [origin, setOrigin]= useState("")
   const [notes, setNotes] = useState("")
   const [errors, setErrors] = useState([])
-  const [coffeeId, setCoffeeId] = useState("")
 
   function onAddCoffee(newCoffee) {
     const updatedCoffeeList = [...coffee, newCoffee];
@@ -17,7 +16,7 @@ function AddCoffee(){
 
     function handleSubmit(e){
       e.preventDefault();
-      fetch("/coffee", {
+      fetch("/coffees", {
         method: "POST",
         headers: {
           "Accept": "application/json",
@@ -27,12 +26,11 @@ function AddCoffee(){
           name,
           origin,
           notes,
-          user_id: user.id,
-          coffeeId
-        }),
+          user_id: user.id
+                }),
       }).then((r) => {
         if (r.ok) {
-          r.json().then((newCoffee) => console.log(newCoffee));
+          r.json().then((newCoffee) => onAddCoffee(newCoffee));
           alert('coffee has been created!')
         } else {
           r.json().then((errorData) => setErrors(errorData.errors));
@@ -71,16 +69,6 @@ function AddCoffee(){
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
         />
-
-        <br></br>
-        <label htmlFor="coffee_id">Coffee ID: </label>
-        <input
-          type="text"
-          id="coffee_id"
-          autoComplete="off"
-          value={coffeeId}
-          onChange={(e) => setCoffeeId(e.target.value)}
-        />
         
         {errors.length > 0 && (
           <ul style={{ color: "red" }}>
@@ -89,7 +77,9 @@ function AddCoffee(){
         ))}
     </ul>
   )}
-  <button type="Submit">Share or update your blend</button>
+  <br>
+  </br>
+  <button type="Submit">Share your blend</button>
       </form>
             
         </div>
