@@ -12,7 +12,7 @@ function NavBar(){
 
     <div>
       {user ? (
-        <p>
+        <div>
             <Link to= "/coffees">See list</Link>
             <br>
             </br>
@@ -22,7 +22,7 @@ function NavBar(){
           <Link to ="/editcoffee">Edit your entries</Link>
           
           <Header/>   
-        </p>
+        </div>
         ) : null}
     </div>
     </header>

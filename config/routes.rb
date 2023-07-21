@@ -15,7 +15,7 @@ resources :reviews, only: [:create, :index, :destroy]
   post "/signup", to: "users#create"
   get "/users", to: "users#index"
   get "/me", to: "users#show"
-  get "/users/:id/blends", to: "users#blends"
+  get "/users/:id", to: "users#show"
 
   post "/reviews", to: "reviews#create"
   get "/reviews", to: "reviews#index"

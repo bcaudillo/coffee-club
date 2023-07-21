@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { CoffeeContext } from './Context/coffee';
+import CoffeeList from './CoffeeList'
 
 
 function EditCoffee(){
@@ -12,6 +13,9 @@ function EditCoffee(){
     const {username,user, setCoffee, coffee} = useContext(CoffeeContext)
     //add user.blends like see list. 
     //more user friendly
+    const userCoffeeList = coffee.filter((coffeeItem) => coffeeItem.user_id === user.id);
+      
+    console.log(userCoffeeList)
     function onEditCoffee(revisedCoffee) {
       console.log(coffee)
       const updatedCoffeeList = coffee.map(coffeeItem => {
@@ -35,7 +39,8 @@ function EditCoffee(){
             name,
             origin,
             notes,
-            user_id: user.id
+            user_id: user.id,
+            coffeeId
           }),
         }).then((r) => {
           if (r.ok) {
@@ -46,11 +51,26 @@ function EditCoffee(){
             console.log(errors)
           }
         });
+        
   
       }
-  
+      
         return(
+       
             <div>
+              {userCoffeeList.map((coffeeItem) => (
+            <div key={coffeeItem.id}>
+               <h2 style = {{color:' #556B2F'}}>{coffeeItem.name}  ☕️</h2>  
+      {<h4 style = {{color: '#B7410E'}}>id: {coffeeItem.id} </h4>}
+
+    
+         <h4 style = {{color: 'brown'}}>Coffee Details</h4>
+          <ul>
+            <li>Origin: {coffeeItem.origin}</li>
+            <li>Notes: {coffeeItem.notes}</li>
+          </ul>
+            </div>
+          ))}
                 <h1>Make a correction:</h1>
                 <h4 style ={{color: 'red'}}>Coffee ID must be present to edit</h4>
             <form onSubmit={(e)=>handleSubmit(e)}>

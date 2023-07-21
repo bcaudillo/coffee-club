@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_04_181530) do
+ActiveRecord::Schema.define(version: 2023_07_20_143713) do
 
   create_table "application_records", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 2023_06_04_181530) do
   create_table "reviews", force: :cascade do |t|
     t.string "comment"
     t.integer "coffee_id"
-    t.string "username"
     t.integer "user_id"
   end
 

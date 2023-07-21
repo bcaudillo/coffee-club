@@ -2,6 +2,7 @@ class ReviewsController < ApplicationController
     
     def create
           review = current_user.reviews.create!(review_params)
+        #   review = Review.find(params[:id])
           render json: review, status: :created
         rescue ActiveRecord::RecordInvalid => e
             render json: {errors: e.record.errors.full_messages}, status: :unprocessable_entity 

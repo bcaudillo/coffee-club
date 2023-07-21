@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { CoffeeContext } from './Context/coffee';
+import EditCoffee from './EditCoffee';
 
 function  CoffeeCard ({coffeeChild}){
   const {username,user, setCoffee, coffee} = useContext(CoffeeContext)
@@ -76,8 +77,10 @@ function  CoffeeCard ({coffeeChild}){
                 "Content-Type": "application/json"
               },
               body: JSON.stringify({
-                comment: comment,
-                coffee_id: coffeeChild.id,
+                review: {
+                  comment: comment,
+                  coffee_id: coffeeChild.id,
+                }
               }),
             }).then((r) => {
               if (r.ok) {
@@ -161,15 +164,12 @@ function  CoffeeCard ({coffeeChild}){
           
           setCoffee(updatedCoffeeList);
         }
-        
+        const userCoffeeList = coffee.filter((coffeeItem) => coffeeItem.user_id === user.id);
       
-
-
-
+        console.log(userCoffeeList)
        
     return(
       <div>
-        
       <h2 style = {{color:' #556B2F'}}>{coffeeChild.name}  ☕️</h2>  
       {isUser ? <h4 style = {{color: '#B7410E'}}>id: {coffeeChild.id} </h4> : null}
 
