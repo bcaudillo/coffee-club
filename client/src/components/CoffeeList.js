@@ -1,13 +1,10 @@
-import React,{useContext,useState} from 'react';
+import React,{useContext} from 'react';
 import CoffeeCard from './CoffeeCard';
 import { CoffeeContext } from './Context/coffee';
-import EditCoffee from './EditCoffee';
 
 
 function CoffeeList(){
-    const {coffee, user} = useContext(CoffeeContext)
-    const [userComponent, setUserComponent]= useState(false)
-    console.log(coffee)
+    const {coffee} = useContext(CoffeeContext)
     const coffeeCards = coffee.map(coffee => 
         <div key = {coffee.id}>
             <CoffeeCard coffeeChild = {coffee}/>

@@ -19,12 +19,17 @@ const {setUser, username, setUsername, password, setPassword,passwordConfirmatio
       body: JSON.stringify({
         username,
         password,
-        passwordConfirmation,
+        password_confirmation: passwordConfirmation
       }),
     }).then((r) => {
+      // debugger
       if (r.ok) {
         r.json().then((user) => setUser(user));
       } 
+      //add else statment
+      else{
+        r.json().then((data) =>console.log(data))
+      }
     });
   }
 

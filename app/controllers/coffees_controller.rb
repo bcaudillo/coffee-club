@@ -2,6 +2,7 @@ class CoffeesController < ApplicationController
     def index
         coffee = Coffee.all
         render json: coffee, include: :reviews
+        #create an exception so coffees can be loaded similar to user and session create
     end
       
 

@@ -11,9 +11,7 @@ const CoffeeProvider = ({children}) =>{
     const [passwordConfirmation, setPasswordConfirmation] =useState('')
     const [comment, setComment] = useState("")
     const [contributions, setContributions] = useState([])
-    
-    console.log(coffee)
-    console.log(user)
+  
     const autoLogin = () =>{
         // auto-login
         fetch(`/me`)

@@ -1,6 +1,8 @@
 class Review < ApplicationRecord
     belongs_to :user
-    belongs_to :coffee
+    validates :comment, presence: true
 
-    validates :comment, presence: true, uniqueness: true
+    def username
+        self.user.username
+    end
 end

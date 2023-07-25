@@ -1,11 +1,12 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { CoffeeContext } from './Context/coffee';
-import EditCoffee from './EditCoffee';
 
 function  CoffeeCard ({coffeeChild}){
-  const {username,user, setCoffee, coffee} = useContext(CoffeeContext)
+  const {user, setCoffee, coffee} = useContext(CoffeeContext)
   const [comment, setComment] = useState("") 
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState([])
+  const [editedComment, setEditedComment] = useState("");
+
   const isUser = user.id === coffeeChild.user_id
 
   
@@ -18,7 +19,7 @@ function  CoffeeCard ({coffeeChild}){
             reviews: updatedReviews
           }
           const updatedCoffeeList = coffee.map((coffeeItem)=>{
-            if(coffeeItem.id == updatedCoffee.id){
+            if(coffeeItem.id === updatedCoffee.id){
               return updatedCoffee
             } 
             return coffeeItem
@@ -44,22 +45,23 @@ function  CoffeeCard ({coffeeChild}){
           const updatedCoffees = coffee.filter((coffee)=> coffeeToDelete !== coffee.id);
           setCoffee(updatedCoffees)
         }
-        
-       function onUpdateReview(newReview) {
-          console.log(newReview);
-          const updatedReviews = coffeeChild.reviews.filter(review => review.id !== newReview.id);
-          const updatedCoffee = {
-            ...coffeeChild,
-            reviews: updatedReviews
-          };
-          const updatedCoffeeList = coffee.map(coffeeItem => {
-            if (coffeeItem.id === updatedCoffee.id) {
-              return updatedCoffee;
-            }
-            return coffeeItem;
-          });
-          setCoffee(updatedCoffeeList);
-        }
+      
+      //   /*Function to replace whole coffee*/
+      //  function onUpdateReview(newReview) {
+      //     console.log(newReview);
+      //     const updatedReviews = coffeeChild.reviews.filter(review => review.id !== newReview.id);
+      //     const updatedCoffee = {
+      //       ...coffeeChild,
+      //       reviews: updatedReviews
+      //     };
+      //     const updatedCoffeeList = coffee.map(coffeeItem => {
+      //       if (coffeeItem.id === updatedCoffee.id) {
+      //         return updatedCoffee;
+      //       }
+      //       return coffeeItem;
+      //     });
+      //     setCoffee(updatedCoffeeList);
+      //   }
 
 
         function handleAddReview(e) {
@@ -77,23 +79,22 @@ function  CoffeeCard ({coffeeChild}){
                 "Content-Type": "application/json"
               },
               body: JSON.stringify({
-                review: {
                   comment: comment,
-                  coffee_id: coffeeChild.id,
-                }
+                  coffee_id: coffeeChild.id
               }),
             }).then((r) => {
               if (r.ok) {
                 r.json().then((newReview) => onAddReview(newReview));
               } else {
                 r.json().then(errorData => {
-                  setErrors(errorData.error);
-                  alert(errorData.error);
+                  console.log(errorData)
+                  setErrors(errorData.errors);
+                  alert(errorData.errors)
                 });
               }
             });
           } else {
-            // User has already written a review, so update the existing review
+
             fetch(`/reviews/${userReview.id}`, {
               method: "PATCH",
               headers: {
@@ -102,16 +103,15 @@ function  CoffeeCard ({coffeeChild}){
               },
               body: JSON.stringify({
                 comment: comment,
-                user_id: user.id,
-                coffee_id: coffeeChild.id,
+                coffee_id: coffeeChild.id
               }),
             }).then((r) => {
               if (r.ok) {
                 r.json().then((updatedReview) => onUpdateReview(updatedReview));
               } else {
                 r.json().then(errorData => {
-                  setErrors(errorData.error);
-                  alert(errorData.error);
+                  console.log(errorData)
+                  setErrors(errorData.errors);
                 });
               }
             });
@@ -140,6 +140,7 @@ function  CoffeeCard ({coffeeChild}){
           setCoffee(updatedCoffeeList);
         }
         
+        /*Function for specific review */
         function onUpdateReview(updatedReview) {
           // Find the coffee that contains the updated review
           const updatedCoffeeList = coffee.map(coffeeItem => {
@@ -164,9 +165,15 @@ function  CoffeeCard ({coffeeChild}){
           
           setCoffee(updatedCoffeeList);
         }
-        const userCoffeeList = coffee.filter((coffeeItem) => coffeeItem.user_id === user.id);
-      
-        console.log(userCoffeeList)
+
+        function handleEditClick(reviewId){
+          console.log(reviewId)
+          console.log(user.id)
+          const userReview = coffeeChild.reviews.find(review => review.user_id === user.id);
+          console.log(userReview)
+          setComment(userReview.comment);
+        }
+       
        
     return(
       <div>
@@ -196,20 +203,28 @@ function  CoffeeCard ({coffeeChild}){
                     value={comment}
                     onChange={(event) => setComment(event.target.value)}
                   />
+                   {errors.length > 0 && (
+                    <ul style={{ color: "red" }}>
+                {errors.map((error) => (
+                  <li key={error}>{error}</li>
+                  ))}
+              </ul>
+            )}
                   <button type="submit">Submit</button>
                  
                   </form>
               </div>
-          
           <h3>What others are saying:</h3>
-          {coffeeChild.reviews !== undefined ? (
+          {coffeeChild.reviews.length > 0 ? (
             coffeeChild.reviews.map(review => (
               <div key={review.id}>
                 <h4>{'😀'} {review.username}  wrote:</h4>
                 <p>Comment: {review.comment}</p>
-                {console.log(coffeeChild.reviews.user_id)}
                 {user.id === review.user_id ? (
-                    <div>                      <button onClick={() => handleDeleteReview(review.id)}>Remove</button>
+                    <div> 
+                      <button onClick={() => handleDeleteReview(review.id)}>Remove</button>
+                      
+                      <button onClick = {()=>handleEditClick(review.id)}>Edit</button>
                     </div>
                   ) : null}
               </div>
@@ -218,6 +233,7 @@ function  CoffeeCard ({coffeeChild}){
             <p>No reviews found.</p>
           )}
         </div>
+        
       
     </div>
   );

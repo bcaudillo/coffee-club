@@ -1,13 +1,6 @@
 Rails.application.routes.draw do
 resources :coffees, only: [:index, :create, :destroy, :update]
-resources :reviews, only: [:create, :index, :destroy]
-  # add resources to somethign
-  # add coffees instead of coffee
-
-  get "/coffees", to: "coffees#index"
-  post "/coffees", to: "coffees#create"
-  delete "/coffees/:id", to: "coffees#destroy"
-  patch "/coffees/:id", to: "coffees#update"
+resources :reviews, only: [:create, :index, :destroy, :update]
 
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
@@ -17,8 +10,4 @@ resources :reviews, only: [:create, :index, :destroy]
   get "/me", to: "users#show"
   get "/users/:id", to: "users#show"
 
-  post "/reviews", to: "reviews#create"
-  get "/reviews", to: "reviews#index"
-  delete "/reviews/:id", to: "reviews#destroy"
-  patch "/reviews/:id", to: "reviews#update"
 end

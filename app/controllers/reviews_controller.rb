@@ -1,12 +1,11 @@
 class ReviewsController < ApplicationController
     
     def create
+        #understand what review is doing prior to review
           review = current_user.reviews.create!(review_params)
-        #   review = Review.find(params[:id])
+          #exception handled in application controller -> understand prior to review
           render json: review, status: :created
-        rescue ActiveRecord::RecordInvalid => e
-            render json: {errors: e.record.errors.full_messages}, status: :unprocessable_entity 
-      end
+    end
 
       
 
@@ -16,13 +15,14 @@ class ReviewsController < ApplicationController
     end
 
     def update
-        ##current.user.review
         review = Review.find(params[:id])
+        # byebug
+        # review = current_user.reviews.find(params[:id])
         if review
             review.update(review_params)
             render json: review
         else 
-            render json: {error: "Review not found"}, status: :not_found
+            render json: {errors: "Review not found"}, status: :not_found
         end
     end
           
@@ -34,7 +34,7 @@ class ReviewsController < ApplicationController
             review.destroy
             head :no_content
         else 
-            render json: {error: "review not found"}, status: :not_found
+            render json: {errors: "review not found"}, status: :not_found
         end
     end
 
@@ -42,7 +42,7 @@ class ReviewsController < ApplicationController
     private
 
     def review_params
-        params.require(:review).permit(:username, :comment, :coffee_id, :user_id)
+        params.require(:review).permit(:comment, :coffee_id)
     end
 
 end
