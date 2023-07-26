@@ -1,6 +1,6 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :username, :blends
-
+  attributes :id, :username, :coffees
+  
 
 end
 

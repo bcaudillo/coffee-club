@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext,useEffect } from 'react';
 import { CoffeeContext } from './Context/coffee';
 import CoffeeList from './CoffeeList'
 
@@ -10,12 +10,15 @@ function EditCoffee(){
     const [errors, setErrors] = useState([])
     const [coffeeId, setCoffeeId] = useState("")
 
-    const {username,user, setCoffee, coffee} = useContext(CoffeeContext)
-    //add user.blends like see list. 
-    //more user friendly
-    const userCoffeeList = coffee.filter((coffeeItem) => coffeeItem.user_id === user.id);
-      
-    console.log(userCoffeeList)
+    const {blends, setBlends,user, setCoffee, coffee} = useContext(CoffeeContext)
+   
+    useEffect(()=>{
+      fetch("/users/blends")
+      .then(r => r.json())
+      .then(blends =>setBlends(blends))
+      console.log(blends)
+    },[])
+
     function onEditCoffee(revisedCoffee) {
       console.log(coffee)
       const updatedCoffeeList = coffee.map(coffeeItem => {
@@ -24,8 +27,14 @@ function EditCoffee(){
         }
         return coffeeItem;
       });
-      setCoffee(updatedCoffeeList);
-    }
+      const updatedBlends = blends.map(coffeeItem => {
+        if (revisedCoffee.id === coffeeItem.id) {
+          return revisedCoffee;
+        }
+        return coffeeItem;
+      });      setCoffee(updatedCoffeeList);
+      setBlends(updatedBlends)
+        }
   
       function handleSubmit(e){
         e.preventDefault();
@@ -39,7 +48,6 @@ function EditCoffee(){
             name,
             origin,
             notes,
-            user_id: user.id,
             coffeeId
           }),
         }).then((r) => {
@@ -58,7 +66,7 @@ function EditCoffee(){
         return(
        
             <div>
-              {userCoffeeList.map((coffeeItem) => (
+              {blends.map((coffeeItem) => (
             <div key={coffeeItem.id}>
                <h2 style = {{color:' #556B2F'}}>{coffeeItem.name}  ☕️</h2>  
       {<h4 style = {{color: '#B7410E'}}>id: {coffeeItem.id} </h4>}

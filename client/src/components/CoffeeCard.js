@@ -34,35 +34,25 @@ function  CoffeeCard ({coffeeChild}){
           .then(onDeleteReview(reviewId))
         }
         
-        function handleDeleteCoffee(coffeeToDelete){
-          fetch(`/coffee/${coffeeToDelete}`,{
+        function handleDeleteCoffee(coffeeToDelete) {
+          fetch(`/coffees/${coffeeToDelete}`, {
             method: "DELETE"
           })
-          .then(onDeleteCoffee(coffeeToDelete))
+          .then((r) => {
+            if (r.ok) {
+              onDeleteCoffee(coffeeToDelete);
+            } else {
+              r.json().then((errorData) => setErrors(errorData.errors));
+              console.log(errors);
+            }
+          });
         }
         function onDeleteCoffee(coffeeToDelete){
           console.log(coffeeToDelete)
           const updatedCoffees = coffee.filter((coffee)=> coffeeToDelete !== coffee.id);
           setCoffee(updatedCoffees)
         }
-      
-      //   /*Function to replace whole coffee*/
-      //  function onUpdateReview(newReview) {
-      //     console.log(newReview);
-      //     const updatedReviews = coffeeChild.reviews.filter(review => review.id !== newReview.id);
-      //     const updatedCoffee = {
-      //       ...coffeeChild,
-      //       reviews: updatedReviews
-      //     };
-      //     const updatedCoffeeList = coffee.map(coffeeItem => {
-      //       if (coffeeItem.id === updatedCoffee.id) {
-      //         return updatedCoffee;
-      //       }
-      //       return coffeeItem;
-      //     });
-      //     setCoffee(updatedCoffeeList);
-      //   }
-
+    
 
         function handleAddReview(e) {
           e.preventDefault();

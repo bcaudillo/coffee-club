@@ -15,9 +15,8 @@ class ReviewsController < ApplicationController
     end
 
     def update
-        review = Review.find(params[:id])
-        # byebug
-        # review = current_user.reviews.find(params[:id])
+        byebug
+        review = current_user.reviews.find(params[:id])
         if review
             review.update(review_params)
             render json: review
@@ -29,7 +28,7 @@ class ReviewsController < ApplicationController
 
 
     def destroy
-        review = Review.find(params[:id])
+        review = current_user.reviews.find(params[:id])
         if review
             review.destroy
             head :no_content
@@ -42,7 +41,7 @@ class ReviewsController < ApplicationController
     private
 
     def review_params
-        params.require(:review).permit(:comment, :coffee_id)
+        params.require(:review).permit(:comment, :coffee_id,:user_id)
     end
 
 end

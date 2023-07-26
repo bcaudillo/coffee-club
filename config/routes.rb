@@ -8,6 +8,6 @@ resources :reviews, only: [:create, :index, :destroy, :update]
   post "/signup", to: "users#create"
   get "/users", to: "users#index"
   get "/me", to: "users#show"
-  get "/users/:id", to: "users#show"
+  get "/users/blends", to: "users#blends"
 
 end

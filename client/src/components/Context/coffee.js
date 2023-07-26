@@ -11,6 +11,7 @@ const CoffeeProvider = ({children}) =>{
     const [passwordConfirmation, setPasswordConfirmation] =useState('')
     const [comment, setComment] = useState("")
     const [contributions, setContributions] = useState([])
+    const [blends, setBlends] =useState([])
   
     const autoLogin = () =>{
         // auto-login
@@ -25,6 +26,12 @@ const CoffeeProvider = ({children}) =>{
             .then(r=>r.json())
             .then(coffee =>setCoffee(coffee)) 
           }
+
+    const loadBlends = () =>{
+      fetch("/users/blends")
+      .then(r => r.json())
+      .then(blends =>setBlends(blends))
+    }
     const logoutUser = () =>{
         fetch("/logout", {
             method: "DELETE",
@@ -56,6 +63,9 @@ const CoffeeProvider = ({children}) =>{
     return(
         <CoffeeContext.Provider value= {{
             autoLogin,
+            loadBlends,
+            blends,
+            setBlends,
             user, 
             setUser,
             username,

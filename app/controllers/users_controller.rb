@@ -3,13 +3,8 @@ class UsersController < ApplicationController
 
     def create
         user = User.create!(user_params)
-        # byebug
         session[:user_id] = user.id
         render json: user, status: :created
-        # else 
-        #     # byebug
-        #     render json: {errors: user.errors.full_messages}, status: :unprocessable_entity
-        # end
     end
 
     def show
@@ -19,8 +14,7 @@ class UsersController < ApplicationController
     end
 
     def blends
-        @user = User.find(params[:id])
-        blend = @user.blends
+        blends = current_user.blends
         render json: blends, status: :accepted
     end
 

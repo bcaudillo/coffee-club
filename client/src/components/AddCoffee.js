@@ -25,8 +25,7 @@ function AddCoffee(){
         body: JSON.stringify({
           name,
           origin,
-          notes,
-          user_id: user.id
+          notes
                 }),
       }).then((r) => {
         if (r.ok) {
