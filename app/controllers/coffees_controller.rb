@@ -8,8 +8,6 @@ class CoffeesController < ApplicationController
     def create
         coffee = Coffee.create!(coffee_params)
         render json: coffee, status: :created
-    rescue ActiveRecord::RecordInvalid => e
-        render json: {errors: e.record.errors.full_messages}, status: :unprocessable_entity 
     end
 
       
