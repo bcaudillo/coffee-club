@@ -8,8 +8,8 @@ import { Link } from "react-router-dom";
 function Login(){
   
   const [errors,setErrors] = useState([])
-  const {setUser, password, setPassword, username, setUsername} = useContext(CoffeeContext)
-  
+  const {user,setUser, password, setPassword, username, setUsername} = useContext(CoffeeContext)
+  console.log(user)
   function handleSubmit(e) {
     e.preventDefault();
     fetch("/login", {

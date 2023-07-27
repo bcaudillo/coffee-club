@@ -20,7 +20,8 @@ function NavBar(){
             <br>
           </br>
           <Link to ="/editcoffee">Edit your entries</Link>
-          
+          <br/>
+          <Link to ="/myreviews">My reviews</Link>
           <Header/>   
         </div>
         ) : null}

@@ -8,6 +8,7 @@ import Home from "./Home";
 import { CoffeeContext } from "./Context/coffee";
 import AddCoffee from "./AddCoffee"
 import EditCoffee from './EditCoffee'
+import MyReviews from "./MyReviews";
 
 
 function App() {
@@ -37,6 +38,9 @@ function App() {
           </Route>
           <Route path ="/editcoffee">
             <EditCoffee />
+          </Route>
+          <Route path ="/myreviews">
+            <MyReviews />
           </Route>
         </Switch>
       ) : (

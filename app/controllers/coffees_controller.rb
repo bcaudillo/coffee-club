@@ -6,19 +6,25 @@ class CoffeesController < ApplicationController
       
 
     def create
-        coffee = Coffee.create!(coffee_params)
-        render json: coffee, status: :created
+        blend = current_user.blends.create(coffee_params)
+        render json: blend, status: :created
     end
 
       
+    def show
+        reviews = current_user.reviews
+        render json: reviews, status: :ok
+    end
+
     def update
         coffee = current_user.blends.find(params[:id])
           if coffee
             coffee.update(coffee_params)
             render json: coffee, status: :ok
           else
-            render json: { errors: "can not be blank" }, status: :unprocessable_entity
-          end
+            render_not_found_response
+                  
+        end
        
       end
 

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-resources :coffees, only: [:index, :create, :destroy, :update]
+resources :coffees, only: [:index, :create, :destroy, :update, :show]
 resources :reviews, only: [:create, :index, :destroy, :update]
 
   post "/login", to: "sessions#create"

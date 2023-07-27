@@ -152,7 +152,7 @@ function  CoffeeCard ({coffeeChild}){
           setCoffee(updatedCoffeeList);
         }
 
-        function handleEditClick(reviewId){
+        function handleEditClick(){
           const userReview = coffeeChild.reviews.find(review => review.user_id === user.id);
           setComment(userReview.comment);
         }
