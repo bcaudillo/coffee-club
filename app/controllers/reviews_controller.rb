@@ -1,9 +1,7 @@
 class ReviewsController < ApplicationController
     
     def create
-        #understand what review is doing prior to review
           review = current_user.reviews.create!(review_params)
-          #exception handled in application controller -> understand prior to review
           render json: review, status: :created
     end
 

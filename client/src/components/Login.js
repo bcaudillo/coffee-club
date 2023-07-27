@@ -36,7 +36,6 @@ function Login(){
         <Link to="/">Home</Link>
         <h1>Coffee Club</h1>
         <h3>Login</h3>
-        {/*remove the other fform type it's tacky */}
 
         <Form.Group widths="equal">
             <Form.Input

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { CoffeeContext } from "./Context/coffee";
 import { Link } from "react-router-dom";
 
@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 function SignUp() {
 
 const {setUser, username, setUsername, password, setPassword,passwordConfirmation, setPasswordConfirmation}= useContext(CoffeeContext)
+const [errors, setErrors] = useState([])
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -22,13 +23,11 @@ const {setUser, username, setUsername, password, setPassword,passwordConfirmatio
         password_confirmation: passwordConfirmation
       }),
     }).then((r) => {
-      // debugger
       if (r.ok) {
         r.json().then((user) => setUser(user));
       } 
-      //add else statment
       else{
-        r.json().then((data) =>console.log(data))
+        r.json().then((data) =>setErrors(data))
       }
     });
   }
@@ -65,11 +64,19 @@ const {setUser, username, setUsername, password, setPassword,passwordConfirmatio
           onChange={(e) => setPasswordConfirmation(e.target.value)}
           autoComplete="current-password"
         />
+          {errors.length > 0 && (
+              <ul style={{ color: "red" }}>
+          {errors.map((error) => (
+            <li key={error}>{error}</li>
+            ))}
+        </ul>
+      )}
         <br>
         </br>
         <button type="Submit">Sign Up</button>
       </form>
     </div>
+  
   );
 }
 

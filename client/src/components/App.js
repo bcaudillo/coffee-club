@@ -13,7 +13,6 @@ import EditCoffee from './EditCoffee'
 function App() {
 
   const {autoLogin, user, loadCoffee,setUser} = useContext(CoffeeContext)
-  // const {user} = useContext(UserDataContext)
 
 
   useEffect(()=>{

@@ -57,11 +57,9 @@ function  CoffeeCard ({coffeeChild}){
         function handleAddReview(e) {
           e.preventDefault();
         
-          // Check if the user has already written a review for the specific coffeeChild
           const userReview = coffeeChild.reviews.find(review => review.user_id === user.id);
         
           if (!userReview) {
-            // User has not written a review yet, so create a new review
             fetch(`/reviews`, {
               method: "POST",
               headers: {
@@ -130,12 +128,9 @@ function  CoffeeCard ({coffeeChild}){
           setCoffee(updatedCoffeeList);
         }
         
-        /*Function for specific review */
         function onUpdateReview(updatedReview) {
-          // Find the coffee that contains the updated review
           const updatedCoffeeList = coffee.map(coffeeItem => {
             if (coffeeItem.reviews.some(review => review.id === updatedReview.id)) {
-              // Update the specific review in the coffee's reviews array
               const updatedReviews = coffeeItem.reviews.map(review => {
                 if (review.id === updatedReview.id) {
                   return updatedReview;
@@ -143,7 +138,6 @@ function  CoffeeCard ({coffeeChild}){
                 return review;
               });
         
-              // Return the coffee with the updated reviews
               return {
                 ...coffeeItem,
                 reviews: updatedReviews
