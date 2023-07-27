@@ -5,7 +5,6 @@ function  CoffeeCard ({coffeeChild}){
   const {user, setCoffee, coffee} = useContext(CoffeeContext)
   const [comment, setComment] = useState("") 
   const [errors, setErrors] = useState([])
-  const [editedComment, setEditedComment] = useState("");
 
   const isUser = user.id === coffeeChild.user_id
 
@@ -71,13 +70,14 @@ function  CoffeeCard ({coffeeChild}){
                   coffee_id: coffeeChild.id
               }),
             }).then((r) => {
+              setErrors("")
+              setComment("")
               if (r.ok) {
                 r.json().then((newReview) => onAddReview(newReview));
               } else {
                 r.json().then(errorData => {
                   console.log(errorData)
                   setErrors(errorData.errors);
-                  alert(errorData.errors)
                 });
               }
             });
@@ -94,6 +94,8 @@ function  CoffeeCard ({coffeeChild}){
                 coffee_id: coffeeChild.id
               }),
             }).then((r) => {
+              setComment("")
+              setErrors("")
               if (r.ok) {
                 r.json().then((updatedReview) => onUpdateReview(updatedReview));
               } else {
@@ -151,10 +153,7 @@ function  CoffeeCard ({coffeeChild}){
         }
 
         function handleEditClick(reviewId){
-          console.log(reviewId)
-          console.log(user.id)
           const userReview = coffeeChild.reviews.find(review => review.user_id === user.id);
-          console.log(userReview)
           setComment(userReview.comment);
         }
        

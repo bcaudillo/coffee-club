@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 function Login(){
   
-  const [errors,setErrors] = useState({})
+  const [errors,setErrors] = useState([])
   const {setUser, password, setPassword, username, setUsername} = useContext(CoffeeContext)
   
   function handleSubmit(e) {
@@ -25,41 +25,40 @@ function Login(){
       }
       else {
         r.json().then((errorData) => setErrors(errorData));
-         alert(JSON.stringify(errors.error))
+        alert(errors.error)
       }
     });
   }
-      return(
-        
-    
-    <Form onSubmit ={handleSubmit}>
+  return (
+    <>
+      <div>
         <Link to="/">Home</Link>
         <h1>Coffee Club</h1>
         <h3>Login</h3>
-
-        <Form.Group widths="equal">
-            <Form.Input
-            fluid
-            placeholder ="username"
-            name ="username"
-            value = {username}
-            onChange = { (e) => setUsername(e.target.value)}
-            >
-            </Form.Input>
-            <Form.Input
-            fluid
-            placeholder ="password"
-            name ="password"
-            value = {password}
-            onChange = {(e)=> setPassword(e.target.value)}
-            >
-            </Form.Input>
-            
-            <Form.Button>Submit</Form.Button>
-
-        </Form.Group>
-        </Form>
-        
-    )
+      </div>
+  
+      <div>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            id="username"
+            autoComplete="off"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <br />
+          <input
+            type="text"
+            id="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <br/>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </>
+  );
 }
 export default Login;

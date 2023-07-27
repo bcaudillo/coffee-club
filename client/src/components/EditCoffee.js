@@ -9,6 +9,7 @@ function EditCoffee(){
     const [notes, setNotes] = useState("")
     const [errors, setErrors] = useState([])
     const [coffeeId, setCoffeeId] = useState("")
+  
 
     const {blends, setBlends,user, setCoffee, coffee} = useContext(CoffeeContext)
    
@@ -51,6 +52,10 @@ function EditCoffee(){
             coffeeId
           }),
         }).then((r) => {
+          setName("")
+          setOrigin("")
+          setNotes("")
+          setCoffeeId("")
           if (r.ok) {
             r.json().then((newCoffee) => onEditCoffee(newCoffee));
             alert('coffee has been edited!')

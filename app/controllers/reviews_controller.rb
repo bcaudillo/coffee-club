@@ -13,13 +13,10 @@ class ReviewsController < ApplicationController
     end
 
     def update
-        byebug
         review = current_user.reviews.find(params[:id])
         if review
             review.update(review_params)
             render json: review
-        else 
-            render json: {errors: "Review not found"}, status: :not_found
         end
     end
           
@@ -30,8 +27,6 @@ class ReviewsController < ApplicationController
         if review
             review.destroy
             head :no_content
-        else 
-            render json: {errors: "review not found"}, status: :not_found
         end
     end
 

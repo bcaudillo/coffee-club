@@ -1,5 +1,6 @@
 import {useState, useContext, useEffect} from "react"
 import { CoffeeContext } from "./Context/coffee"
+import CoffeeList from "./CoffeeList"
 
 function AddCoffee(){
   const {user, coffee, setCoffee} = useContext(CoffeeContext)
@@ -28,9 +29,12 @@ function AddCoffee(){
           notes
                 }),
       }).then((r) => {
+        setName("")
+        setOrigin("")
+        setNotes("")
+        setErrors([])
         if (r.ok) {
           r.json().then((newCoffee) => onAddCoffee(newCoffee));
-          alert('coffee has been created!')
         } else {
           r.json().then((errorData) => setErrors(errorData.errors));
           console.log(errors)
